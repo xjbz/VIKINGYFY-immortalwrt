@@ -506,7 +506,6 @@ define Package/hostapd-common
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=WirelessAPD
-  DEPENDS:=+wifi-scripts
 endef
 
 define Package/hostapd-utils
