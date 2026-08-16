@@ -43,11 +43,9 @@ will no longer apply - drop the ahb.c hunks that implement the
 ce_irq_enable/ce_irq_disable ops and keep only the remoteproc-state gate
 from item 2, which is local to this tree.
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 8d10eaa..fe9f451 100644
 --- a/drivers/net/wireless/ath/ath11k/ahb.c
 +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -371,6 +371,20 @@ static void ath11k_ahb_ce_irqs_disable(struct ath11k_base *ab)
+@@ -371,6 +371,20 @@ static void ath11k_ahb_ce_irqs_disable(s
  	}
  }
  
@@ -68,7 +66,7 @@ index 8d10eaa..fe9f451 100644
  static int ath11k_ahb_start(struct ath11k_base *ab)
  {
  	ath11k_ahb_ce_irqs_enable(ab);
-@@ -403,10 +417,7 @@ static void ath11k_ahb_ext_irq_disable(struct ath11k_base *ab)
+@@ -403,10 +417,7 @@ static void ath11k_ahb_ext_irq_disable(s
  
  static void ath11k_ahb_stop(struct ath11k_base *ab)
  {
@@ -80,7 +78,7 @@ index 8d10eaa..fe9f451 100644
  	timer_delete_sync(&ab->rx_replenish_retry);
  	ath11k_ce_cleanup_pipes(ab);
  }
-@@ -478,6 +489,10 @@ static void ath11k_ahb_free_irq(struct ath11k_base *ab)
+@@ -478,6 +489,10 @@ static void ath11k_ahb_free_irq(struct a
  static void ath11k_ahb_ce_tasklet(struct tasklet_struct *t)
  {
  	struct ath11k_ce_pipe *ce_pipe = from_tasklet(ce_pipe, t, intr_tq);
@@ -91,7 +89,7 @@ index 8d10eaa..fe9f451 100644
  
  	ath11k_ce_per_engine_service(ce_pipe->ab, ce_pipe->pipe_num);
  
-@@ -487,6 +502,16 @@ static void ath11k_ahb_ce_tasklet(struct tasklet_struct *t)
+@@ -487,6 +502,16 @@ static void ath11k_ahb_ce_tasklet(struct
  static irqreturn_t ath11k_ahb_ce_interrupt_handler(int irq, void *arg)
  {
  	struct ath11k_ce_pipe *ce_pipe = arg;
@@ -108,7 +106,7 @@ index 8d10eaa..fe9f451 100644
  
  	/* last interrupt received for this CE */
  	ce_pipe->timestamp = jiffies;
-@@ -808,6 +833,8 @@ static const struct ath11k_hif_ops ath11k_ahb_hif_ops_ipq8074 = {
+@@ -808,6 +833,8 @@ static const struct ath11k_hif_ops ath11
  	.map_service_to_pipe = ath11k_ahb_map_service_to_pipe,
  	.power_down = ath11k_ahb_power_down,
  	.power_up = ath11k_ahb_power_up,

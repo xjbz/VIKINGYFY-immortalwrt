@@ -16,10 +16,9 @@ without displacing anything.
 
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
-diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
 --- a/mc_wifi_events.c
 +++ b/mc_wifi_events.c
-@@ -97,20 +97,20 @@
+@@ -97,20 +97,20 @@ void mc_sta_leave_event(struct net_devic
  	pdev = netdev_master_upper_dev_get(dev);
  	if (!pdev) {
  		rtnl_unlock();
@@ -43,7 +42,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  		return;
  	}
  
-@@ -163,12 +163,12 @@
+@@ -163,12 +163,12 @@ void mc_process_sta_leave_event(struct n
  	int res;
  
  	if (nlh->nlmsg_len < nlmsg_msg_size(GENL_HDRLEN)) {
@@ -58,7 +57,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  		return;
  	}
  
-@@ -178,7 +178,7 @@
+@@ -178,7 +178,7 @@ void mc_process_sta_leave_event(struct n
  	res = nla_parse(tb, NL80211_ATTR_MAX, nlmsg_attrdata(nlh, GENL_HDRLEN),
  			nlmsg_attrlen(nlh, GENL_HDRLEN), NULL, NULL);
  	if (res < 0) {
@@ -67,7 +66,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  		goto free;
  	}
  
-@@ -364,20 +364,20 @@
+@@ -364,20 +364,20 @@ void mc_handle_vbss_event(struct net_dev
          pdev = netdev_master_upper_dev_get(dev);
          if (!pdev) {
                  rtnl_unlock();
@@ -91,7 +90,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
                  return;
          }
  
-@@ -448,7 +448,7 @@
+@@ -448,7 +448,7 @@ void mc_process_vendor_event(struct nlms
  	struct nlattr **tb=NULL;
  
  	if (nlh->nlmsg_len < nlmsg_msg_size(GENL_HDRLEN)) {
@@ -100,7 +99,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  		return;
  	}
  
-@@ -457,14 +457,14 @@
+@@ -457,14 +457,14 @@ void mc_process_vendor_event(struct nlms
  	 */
  	tb = (struct nlattr **)kzalloc((sizeof(struct nlattr *) * (NL80211_ATTR_MAX + 1)), GFP_ATOMIC | __GFP_NOWARN);
  	if (!tb) {
@@ -117,7 +116,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  		goto free;
  	}
  
-@@ -472,18 +472,18 @@
+@@ -472,18 +472,18 @@ void mc_process_vendor_event(struct nlms
  	 * Get the vendor ID
   	 */
  	if (!tb[NL80211_ATTR_VENDOR_ID]){
@@ -139,7 +138,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  		goto free;
  	}
  
-@@ -538,7 +538,7 @@
+@@ -538,7 +538,7 @@ static int mc_event_handler(void *buf, i
  		hdr = NLMSG_DATA(nlh);
  		switch (hdr->cmd) {
  		case NL80211_CMD_DEL_STATION:
@@ -148,7 +147,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  			mc_process_sta_leave_event(nlh, hdr->cmd);
  			break;
  
-@@ -629,10 +629,10 @@
+@@ -629,10 +629,10 @@ int mc_parse_genl_ctrl_response(struct n
  	        return -1;
  	}
  	if (res_mlme >= 0)
@@ -161,7 +160,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  
  	return 0;
  }
-@@ -769,7 +769,7 @@
+@@ -769,7 +769,7 @@ int mc_resolve_nl80211_family(struct soc
  	 */
  	nlh = (struct nlmsghdr *)buf;
  	while (NLMSG_OK(nlh, size)) {
@@ -170,7 +169,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  		ret = mc_parse_genl_ctrl_response(nlh, &mlme_id, &vendor_id);
  		if (ret < 0) {
  			printk(KERN_WARNING"%px: Failed to parse the multicast group message %d\n", sock, ret);
-@@ -796,7 +796,7 @@
+@@ -796,7 +796,7 @@ int mc_resolve_nl80211_family(struct soc
  			return ret;
  		}
  
@@ -179,7 +178,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  	}
  
  	if (vendor_id != MCS_NL80211_MC_GROUP_INVALID_ID) {
-@@ -806,7 +806,7 @@
+@@ -806,7 +806,7 @@ int mc_resolve_nl80211_family(struct soc
  			return ret;
  		}
  
@@ -188,7 +187,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  	}
  
  	return 0;
-@@ -865,7 +865,7 @@
+@@ -865,7 +865,7 @@ static void mc_event_thread(void)
  	/*
  	 * Start listening to the Wi-Fi events.
  	 */
@@ -197,7 +196,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  	while (!kthread_should_stop()) {
  		size = mc_event_recv(__ewn.sock, &saddr, buf, len);
  
-@@ -880,7 +880,7 @@
+@@ -880,7 +880,7 @@ static void mc_event_thread(void)
  	}
  
  	kfree(buf);
@@ -206,7 +205,7 @@ diff -ruN a/mc_wifi_events.c b/mc_wifi_events.c
  exit2:
  	sock_release(__ewn.sock);
  exit1:
-@@ -917,12 +917,12 @@
+@@ -917,12 +917,12 @@ int mc_event_stop(void)
  		return 0;
  	}
  

@@ -26,8 +26,6 @@ direction the buffer was mapped in.
 
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
-diff --git a/drivers/net/wireless/ath/ath11k/Kconfig b/drivers/net/wireless/ath/ath11k/Kconfig
-index f50a905..f40a6d6 100644
 --- a/drivers/net/wireless/ath/ath11k/Kconfig
 +++ b/drivers/net/wireless/ath/ath11k/Kconfig
 @@ -13,6 +13,16 @@ config ATH11K
@@ -47,11 +45,9 @@ index f50a905..f40a6d6 100644
  config ATH11K_AHB
  	tristate "Atheros ath11k AHB support"
  	depends on m
-diff --git a/drivers/net/wireless/ath/ath11k/Makefile b/drivers/net/wireless/ath/ath11k/Makefile
-index 78d9822..657603b 100644
 --- a/drivers/net/wireless/ath/ath11k/Makefile
 +++ b/drivers/net/wireless/ath/ath11k/Makefile
-@@ -28,6 +28,7 @@ ath11k-$(CPTCFG_ATH11K_THERMAL) += thermal.o
+@@ -28,6 +28,7 @@ ath11k-$(CPTCFG_ATH11K_THERMAL) += therm
  ath11k-$(CPTCFG_ATH11K_SPECTRAL) += spectral.o
  ath11k-$(CONFIG_PM) += wow.o
  ath11k-$(CONFIG_DEV_COREDUMP) += coredump.o
@@ -59,8 +55,6 @@ index 78d9822..657603b 100644
  
  obj-$(CPTCFG_ATH11K_AHB) += ath11k_ahb.o
  ath11k_ahb-y += ahb.o
-diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index 9cea16b..b86d1c3 100644
 --- a/drivers/net/wireless/ath/ath11k/core.h
 +++ b/drivers/net/wireless/ath/ath11k/core.h
 @@ -909,6 +909,8 @@ struct ath11k_soc_dp_tx_err_stats {
@@ -80,8 +74,6 @@ index 9cea16b..b86d1c3 100644
  
  	void __iomem *mem;
  	void __iomem *mem_ce;
-diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
-index cc389c1..e803b1e 100644
 --- a/drivers/net/wireless/ath/ath11k/dp_rx.c
 +++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
 @@ -994,6 +994,29 @@ unlock_exit:
@@ -114,8 +106,6 @@ index cc389c1..e803b1e 100644
  int ath11k_peer_rx_tid_setup(struct ath11k *ar, const u8 *peer_mac, int vdev_id,
  			     u8 tid, u32 ba_win_sz, u16 ssn,
  			     enum hal_pn_type pn_type)
-diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.h b/drivers/net/wireless/ath/ath11k/dp_rx.h
-index 7d00193..8473cf6 100644
 --- a/drivers/net/wireless/ath/ath11k/dp_rx.h
 +++ b/drivers/net/wireless/ath/ath11k/dp_rx.h
 @@ -21,6 +21,34 @@
@@ -153,7 +143,7 @@ index 7d00193..8473cf6 100644
  enum dp_rx_decap_type {
  	DP_RX_DECAP_TYPE_RAW,
  	DP_RX_DECAP_TYPE_NATIVE_WIFI,
-@@ -76,6 +104,9 @@ void ath11k_peer_rx_tid_delete(struct ath11k *ar,
+@@ -76,6 +104,9 @@ void ath11k_peer_rx_tid_delete(struct at
  int ath11k_peer_rx_tid_setup(struct ath11k *ar, const u8 *peer_mac, int vdev_id,
  			     u8 tid, u32 ba_win_sz, u16 ssn,
  			     enum hal_pn_type pn_type);
@@ -163,8 +153,6 @@ index 7d00193..8473cf6 100644
  void ath11k_dp_htt_htc_t2h_msg_handler(struct ath11k_base *ab,
  				       struct sk_buff *skb);
  int ath11k_dp_pdev_reo_setup(struct ath11k_base *ab);
-diff --git a/drivers/net/wireless/ath/ath11k/hif.h b/drivers/net/wireless/ath/ath11k/hif.h
-index e4c1ad4..6bcee1b 100644
 --- a/drivers/net/wireless/ath/ath11k/hif.h
 +++ b/drivers/net/wireless/ath/ath11k/hif.h
 @@ -33,6 +33,7 @@ struct ath11k_hif_ops {
@@ -175,7 +163,7 @@ index e4c1ad4..6bcee1b 100644
  };
  
  static inline void ath11k_hif_ce_irq_enable(struct ath11k_base *ab)
-@@ -145,6 +146,14 @@ static inline void ath11k_get_msi_address(struct ath11k_base *ab, u32 *msi_addr_
+@@ -145,6 +146,14 @@ static inline void ath11k_get_msi_addres
  	ab->hif.ops->get_msi_address(ab, msi_addr_lo, msi_addr_hi);
  }
  
@@ -190,11 +178,9 @@ index e4c1ad4..6bcee1b 100644
  static inline void ath11k_get_ce_msi_idx(struct ath11k_base *ab, u32 ce_id,
  					 u32 *msi_data_idx)
  {
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 940d7d1..1865032 100644
 --- a/drivers/net/wireless/ath/ath11k/mac.c
 +++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -6383,6 +6383,16 @@ static int ath11k_mac_op_start(struct ieee80211_hw *hw)
+@@ -6386,6 +6386,16 @@ static int ath11k_mac_op_start(struct ie
  		goto err;
  	}
  
@@ -211,9 +197,6 @@ index 940d7d1..1865032 100644
  	__ath11k_set_antenna(ar, ar->cfg_tx_chainmask, ar->cfg_rx_chainmask);
  
  	/* TODO: Do we need to enable ANI? */
-diff --git a/drivers/net/wireless/ath/ath11k/nss.c b/drivers/net/wireless/ath/ath11k/nss.c
-new file mode 100644
-index 0000000..94b8f30
 --- /dev/null
 +++ b/drivers/net/wireless/ath/ath11k/nss.c
 @@ -0,0 +1,2408 @@
@@ -2625,9 +2608,6 @@ index 0000000..94b8f30
 +fail:
 +	return ret;
 +}
-diff --git a/drivers/net/wireless/ath/ath11k/nss.h b/drivers/net/wireless/ath/ath11k/nss.h
-new file mode 100644
-index 0000000..fc22499
 --- /dev/null
 +++ b/drivers/net/wireless/ath/ath11k/nss.h
 @@ -0,0 +1,307 @@
@@ -2938,11 +2918,9 @@ index 0000000..fc22499
 +}
 +#endif /* CPTCFG_ATH11K_NSS_SUPPORT */
 +#endif
-diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
-index 4a4469e..421d190 100644
 --- a/drivers/net/wireless/ath/ath11k/pci.c
 +++ b/drivers/net/wireless/ath/ath11k/pci.c
-@@ -72,6 +72,20 @@ static u32 ath11k_pci_get_window_start(struct ath11k_base *ab, u32 offset)
+@@ -72,6 +72,20 @@ static u32 ath11k_pci_get_window_start(s
  		return ATH11K_PCI_WINDOW_START;
  }
  
@@ -2963,7 +2941,7 @@ index 4a4469e..421d190 100644
  static inline void ath11k_pci_select_window(struct ath11k_pci *ab_pci, u32 offset)
  {
  	struct ath11k_base *ab = ab_pci->ab;
-@@ -922,6 +936,7 @@ static const struct ath11k_hif_ops ath11k_pci_hif_ops = {
+@@ -922,6 +936,7 @@ static const struct ath11k_hif_ops ath11
  	.map_service_to_pipe = ath11k_pcic_map_service_to_pipe,
  	.ce_irq_enable = ath11k_pci_hif_ce_irq_enable,
  	.ce_irq_disable = ath11k_pci_hif_ce_irq_disable,
@@ -2971,11 +2949,9 @@ index 4a4469e..421d190 100644
  	.get_ce_msi_idx = ath11k_pcic_get_ce_msi_idx,
  #ifdef CONFIG_DEV_COREDUMP
  	.coredump_download = ath11k_pci_coredump_download,
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 3f1192a..314705f 100644
 --- a/drivers/net/wireless/ath/ath11k/wmi.c
 +++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -1169,6 +1169,44 @@ int ath11k_wmi_send_pdev_set_regdomain(struct ath11k *ar,
+@@ -1171,6 +1171,44 @@ int ath11k_wmi_send_pdev_set_regdomain(s
  	return ret;
  }
  
@@ -3020,8 +2996,6 @@ index 3f1192a..314705f 100644
  int ath11k_wmi_set_peer_param(struct ath11k *ar, const u8 *peer_addr,
  			      u32 vdev_id, u32 param_id, u32 param_val)
  {
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.h b/drivers/net/wireless/ath/ath11k/wmi.h
-index 6e93542..6b777f0 100644
 --- a/drivers/net/wireless/ath/ath11k/wmi.h
 +++ b/drivers/net/wireless/ath/ath11k/wmi.h
 @@ -2890,6 +2890,27 @@ struct pdev_set_regdomain_params {
@@ -3069,7 +3043,7 @@ index 6e93542..6b777f0 100644
  struct wmi_peer_set_param_cmd {
  	u32 tlv_header;
  	u32 vdev_id;
-@@ -6398,6 +6429,8 @@ int ath11k_wmi_send_peer_create_cmd(struct ath11k *ar,
+@@ -6398,6 +6429,8 @@ int ath11k_wmi_send_peer_create_cmd(stru
  int ath11k_wmi_vdev_set_param_cmd(struct ath11k *ar, u32 vdev_id,
  				  u32 param_id, u32 param_value);
  

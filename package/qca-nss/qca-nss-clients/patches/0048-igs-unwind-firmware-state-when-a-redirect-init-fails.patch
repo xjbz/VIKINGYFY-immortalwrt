@@ -24,7 +24,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 ---
 --- a/nss_qdisc/igs/nss_ifb.c
 +++ b/nss_qdisc/igs/nss_ifb.c
-@@ -147,6 +147,18 @@
+@@ -205,6 +205,18 @@ static void nss_ifb_clear_config_cb(void
  	struct nss_ifb_info *ifb_info = (struct nss_ifb_info *)app_data;
  	bool ret;
  
@@ -45,7 +45,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  		return;
 --- a/nss_qdisc/igs/nss_mirred.c
 +++ b/nss_qdisc/igs/nss_mirred.c
-@@ -191,6 +191,16 @@
+@@ -205,6 +205,16 @@ static int nss_mirred_init(struct net *n
  	 */
  	if (nss_ifb_config_msg_tx_sync(from_dev, ifb_num, NSS_IFB_SET_IGS_NODE, NULL) < 0) {
  		nss_igs_error("Sending config to %s dev failed\n", from_dev->name);
@@ -62,7 +62,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  		return -EINVAL;
  	}
  
-@@ -199,6 +209,13 @@
+@@ -213,6 +223,13 @@ static int nss_mirred_init(struct net *n
  	 */
  	if (nss_ifb_config_msg_tx_sync(from_dev, ifb_num, NSS_IFB_SET_NEXTHOP, NULL) < 0) {
  		nss_igs_error("Sending next hop config to %s dev failed\n", from_dev->name);

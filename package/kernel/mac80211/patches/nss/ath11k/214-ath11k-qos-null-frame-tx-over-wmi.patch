@@ -20,11 +20,9 @@ Signed-off-by: Sowmiya Sree Elavalagan <ssreeela@codeaurora.org>
  drivers/net/wireless/ath/ath11k/wmi.h |  46 +++++++-
  3 files changed, 220 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index ea1c7ae..a697d6f 100644
 --- a/drivers/net/wireless/ath/ath11k/mac.c
 +++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -6145,6 +6145,16 @@ static int ath11k_mac_mgmt_tx_wmi(struct ath11k *ar, struct ath11k_vif *arvif,
+@@ -6148,6 +6148,16 @@ static int ath11k_mac_mgmt_tx_wmi(struct
  
  	ATH11K_SKB_CB(skb)->paddr = paddr;
  
@@ -41,7 +39,7 @@ index ea1c7ae..a697d6f 100644
  	ret = ath11k_wmi_mgmt_send(ar, arvif->vdev_id, buf_id, skb);
  	if (ret) {
  		ath11k_warn(ar->ab, "failed to send mgmt frame: %d\n", ret);
-@@ -6212,8 +6222,8 @@ static void ath11k_mgmt_over_wmi_tx_work(struct work_struct *work)
+@@ -6215,8 +6225,8 @@ static void ath11k_mgmt_over_wmi_tx_work
  	}
  }
  
@@ -52,7 +50,7 @@ index ea1c7ae..a697d6f 100644
  {
  	struct sk_buff_head *q = &ar->wmi_mgmt_tx_queue;
  
-@@ -6275,7 +6285,7 @@ static void ath11k_mac_op_tx(struct ieee80211_hw *hw,
+@@ -6278,7 +6288,7 @@ static void ath11k_mac_op_tx(struct ieee
  	} else if (ieee80211_is_mgmt(hdr->frame_control)) {
  		frm_type = FIELD_GET(IEEE80211_FCTL_STYPE, hdr->frame_control);
  		is_prb_rsp = ieee80211_is_probe_resp(hdr->frame_control);
@@ -61,7 +59,7 @@ index ea1c7ae..a697d6f 100644
  		if (ret) {
  			if (ret != -EBUSY)
  				ath11k_warn(ar->ab, "failed to queue management frame %d\n",
-@@ -6290,6 +6300,20 @@ static void ath11k_mac_op_tx(struct ieee80211_hw *hw,
+@@ -6293,6 +6303,20 @@ static void ath11k_mac_op_tx(struct ieee
  			spin_unlock_bh(&ar->data_lock);
  		}
  		return;
@@ -82,11 +80,9 @@ index ea1c7ae..a697d6f 100644
  	}
  
  	if (control->sta)
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index bf2b1ff..fd0a239 100644
 --- a/drivers/net/wireless/ath/ath11k/wmi.c
 +++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -118,7 +118,7 @@ static const struct wmi_tlv_policy wmi_tlv_policies[] = {
+@@ -118,7 +118,7 @@ static const struct wmi_tlv_policy wmi_t
  	[WMI_TAG_MGMT_RX_HDR]
  		= { .min_len = sizeof(struct wmi_mgmt_rx_hdr) },
  	[WMI_TAG_MGMT_TX_COMPL_EVENT]
@@ -95,7 +91,7 @@ index bf2b1ff..fd0a239 100644
  	[WMI_TAG_SCAN_EVENT]
  		= { .min_len = sizeof(struct wmi_scan_event) },
  	[WMI_TAG_PEER_STA_KICKOUT_EVENT]
-@@ -704,6 +704,55 @@ int ath11k_wmi_mgmt_send(struct ath11k *ar, u32 vdev_id, u32 buf_id,
+@@ -706,6 +706,55 @@ int ath11k_wmi_mgmt_send(struct ath11k *
  	return ret;
  }
  
@@ -151,7 +147,7 @@ index bf2b1ff..fd0a239 100644
  int ath11k_wmi_vdev_create(struct ath11k *ar, u8 *macaddr,
  			   struct vdev_create_params *param)
  {
-@@ -6027,8 +6076,8 @@ static int ath11k_pull_mgmt_rx_params_tlv(struct ath11k_base *ab,
+@@ -6029,8 +6078,8 @@ static int ath11k_pull_mgmt_rx_params_tl
  	return 0;
  }
  
@@ -162,7 +158,7 @@ index bf2b1ff..fd0a239 100644
  {
  	struct sk_buff *msdu;
  	struct ieee80211_tx_info *info;
-@@ -6069,6 +6118,11 @@ static int wmi_process_mgmt_tx_comp(struct ath11k *ar,
+@@ -6071,6 +6120,11 @@ static int wmi_process_mgmt_tx_comp(stru
  			info->status.ack_signal = tx_compl_param->ack_rssi;
  	}
  
@@ -174,7 +170,7 @@ index bf2b1ff..fd0a239 100644
  	hdr = (struct ieee80211_hdr *)msdu->data;
  	frm_type = FIELD_GET(IEEE80211_FCTL_STYPE, hdr->frame_control);
  
-@@ -6087,10 +6141,13 @@ static int wmi_process_mgmt_tx_comp(struct ath11k *ar,
+@@ -6089,10 +6143,13 @@ static int wmi_process_mgmt_tx_comp(stru
  	arvif = ath11k_vif_to_arvif(vif);
  	mgmt_stats = &arvif->mgmt_stats;
  
@@ -192,7 +188,7 @@ index bf2b1ff..fd0a239 100644
  	spin_unlock_bh(&ar->data_lock);
  
  skip_mgmt_stats:
-@@ -6112,12 +6169,13 @@ skip_mgmt_stats:
+@@ -6114,12 +6171,13 @@ skip_mgmt_stats:
  	return 0;
  }
  
@@ -210,7 +206,7 @@ index bf2b1ff..fd0a239 100644
  	int ret;
  
  	tb = ath11k_wmi_tlv_parse_alloc(ab, skb, GFP_ATOMIC);
-@@ -6127,7 +6185,7 @@ static int ath11k_pull_mgmt_tx_compl_param_tlv(struct ath11k_base *ab,
+@@ -6129,7 +6187,7 @@ static int ath11k_pull_mgmt_tx_compl_par
  		return ret;
  	}
  
@@ -219,7 +215,7 @@ index bf2b1ff..fd0a239 100644
  	if (!ev) {
  		ath11k_warn(ab, "failed to fetch mgmt tx compl ev");
  		kfree(tb);
-@@ -7845,10 +7903,11 @@ exit:
+@@ -7847,10 +7905,11 @@ exit:
  
  static void ath11k_mgmt_tx_compl_event(struct ath11k_base *ab, struct sk_buff *skb)
  {
@@ -233,7 +229,7 @@ index bf2b1ff..fd0a239 100644
  		ath11k_warn(ab, "failed to extract mgmt tx compl event");
  		return;
  	}
-@@ -7861,7 +7920,7 @@ static void ath11k_mgmt_tx_compl_event(struct ath11k_base *ab, struct sk_buff *s
+@@ -7863,7 +7922,7 @@ static void ath11k_mgmt_tx_compl_event(s
  		goto exit;
  	}
  
@@ -242,7 +238,7 @@ index bf2b1ff..fd0a239 100644
  
  	ath11k_dbg(ab, ATH11K_DBG_MGMT,
  		   "event mgmt tx compl ev pdev_id %d, desc_id %d, status %d ack_rssi %d",
-@@ -7872,6 +7931,36 @@ exit:
+@@ -7874,6 +7933,36 @@ exit:
  	rcu_read_unlock();
  }
  
@@ -279,7 +275,7 @@ index bf2b1ff..fd0a239 100644
  static struct ath11k *ath11k_get_ar_on_scan_state(struct ath11k_base *ab,
  						  u32 vdev_id,
  						  enum ath11k_scan_state state)
-@@ -9080,6 +9169,10 @@ static void ath11k_wmi_tlv_op_rx(struct ath11k_base *ab, struct sk_buff *skb)
+@@ -9082,6 +9171,10 @@ static void ath11k_wmi_tlv_op_rx(struct
  	case WMI_WDS_PEER_EVENTID:
  		ath11k_wmi_wds_peer_event(ab, skb);
  		break;
@@ -290,8 +286,6 @@ index bf2b1ff..fd0a239 100644
  	default:
  		ath11k_dbg(ab, ATH11K_DBG_WMI, "unsupported event id 0x%x\n", id);
  		break;
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.h b/drivers/net/wireless/ath/ath11k/wmi.h
-index 7284b64..c024810 100644
 --- a/drivers/net/wireless/ath/ath11k/wmi.h
 +++ b/drivers/net/wireless/ath/ath11k/wmi.h
 @@ -376,6 +376,7 @@ enum wmi_tlv_cmd_id {
@@ -369,7 +363,7 @@ index 7284b64..c024810 100644
  	u32 desc_id;
  	u32 status;
  	u32 pdev_id;
-@@ -5810,6 +5828,17 @@ struct wmi_debug_log_config_cmd_fixed_param {
+@@ -5810,6 +5828,17 @@ struct wmi_debug_log_config_cmd_fixed_pa
  	u32 value;
  } __packed;
  
@@ -387,7 +381,7 @@ index 7284b64..c024810 100644
  #define MAX_RADIOS 3
  
  #define WMI_SERVICE_READY_TIMEOUT_HZ (5 * HZ)
-@@ -6424,6 +6453,8 @@ int ath11k_wmi_mgmt_send(struct ath11k *ar, u32 vdev_id, u32 buf_id,
+@@ -6424,6 +6453,8 @@ int ath11k_wmi_mgmt_send(struct ath11k *
  			 struct sk_buff *frame);
  int ath11k_wmi_p2p_go_bcn_ie(struct ath11k *ar, u32 vdev_id,
  			     const u8 *p2p_ie);

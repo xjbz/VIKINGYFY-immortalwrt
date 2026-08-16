@@ -22,7 +22,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  static inline int os_br_pass_frame_up(struct sk_buff *skb)
 --- a/mc_snooping.c
 +++ b/mc_snooping.c
-@@ -33,7 +33,11 @@
+@@ -22,7 +22,11 @@
  #include <linux/etherdevice.h>
  #include <linux/rculist.h>
  #include <linux/timer.h>

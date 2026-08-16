@@ -20,8 +20,6 @@ Signed-off-by: Ramya Gnanasekar <rgnanase@codeaurora.org>
  drivers/net/wireless/ath/ath11k/qmi.h   |  6 +++++-
  4 files changed, 24 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/Kconfig b/drivers/net/wireless/ath/ath11k/Kconfig
-index f40a6d6..164705c 100644
 --- a/drivers/net/wireless/ath/ath11k/Kconfig
 +++ b/drivers/net/wireless/ath/ath11k/Kconfig
 @@ -23,6 +23,20 @@ config ATH11K_NSS_SUPPORT
@@ -45,8 +43,6 @@ index f40a6d6..164705c 100644
  config ATH11K_AHB
  	tristate "Atheros ath11k AHB support"
  	depends on m
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 6ecb196..ff70c5e 100644
 --- a/drivers/net/wireless/ath/ath11k/core.c
 +++ b/drivers/net/wireless/ath/ath11k/core.c
 @@ -45,6 +45,8 @@ bool ath11k_ftm_mode;
@@ -58,7 +54,7 @@ index 6ecb196..ff70c5e 100644
  static struct ath11k_hw_params ath11k_hw_params[] = {
  	{
  		.hw_rev = ATH11K_HW_IPQ8074,
-@@ -98,7 +100,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -98,7 +100,7 @@ static struct ath11k_hw_params ath11k_hw
  		.coldboot_cal_mm = true,
  		.coldboot_cal_ftm = true,
  		.cbcal_restart_fw = true,
@@ -67,7 +63,7 @@ index 6ecb196..ff70c5e 100644
  		.num_vdevs = 16 + 1,
  		.num_peers = 512,
  		.supports_suspend = false,
-@@ -130,6 +132,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -130,6 +132,7 @@ static struct ath11k_hw_params ath11k_hw
  		.tcl_ring_retry = true,
  		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
  		.smp2p_wow_exit = false,
@@ -75,7 +71,7 @@ index 6ecb196..ff70c5e 100644
  		.support_dual_stations = false,
  		.pdev_suspend = false,
  	},
-@@ -182,7 +185,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -182,7 +185,7 @@ static struct ath11k_hw_params ath11k_hw
  		.coldboot_cal_mm = false,
  		.coldboot_cal_ftm = false,
  		.cbcal_restart_fw = true,
@@ -84,7 +80,7 @@ index 6ecb196..ff70c5e 100644
  		.num_vdevs = 16 + 1,
  		.num_peers = 512,
  		.supports_suspend = false,
-@@ -215,6 +218,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -215,6 +218,7 @@ static struct ath11k_hw_params ath11k_hw
  		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
  		.smp2p_wow_exit = false,
  		.support_fw_mac_sequence = false,
@@ -92,7 +88,7 @@ index 6ecb196..ff70c5e 100644
  		.support_dual_stations = false,
  		.pdev_suspend = false,
  	},
-@@ -269,7 +273,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -269,7 +273,7 @@ static struct ath11k_hw_params ath11k_hw
  		.coldboot_cal_mm = false,
  		.coldboot_cal_ftm = false,
  		.cbcal_restart_fw = false,
@@ -101,7 +97,7 @@ index 6ecb196..ff70c5e 100644
  		.num_vdevs = 2 + 1,
  		.num_peers = 512,
  		.supports_suspend = true,
-@@ -389,6 +393,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -389,6 +393,7 @@ static struct ath11k_hw_params ath11k_hw
  		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
  		.smp2p_wow_exit = false,
  		.support_fw_mac_sequence = false,
@@ -109,7 +105,7 @@ index 6ecb196..ff70c5e 100644
  		.support_dual_stations = false,
  		.pdev_suspend = false,
  	},
-@@ -531,7 +536,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -531,7 +536,7 @@ static struct ath11k_hw_params ath11k_hw
  		.coldboot_cal_mm = false,
  		.coldboot_cal_ftm = false,
  		.cbcal_restart_fw = false,
@@ -118,7 +114,7 @@ index 6ecb196..ff70c5e 100644
  		.num_vdevs = 2 + 1,
  		.num_peers = 512,
  		.supports_suspend = true,
-@@ -617,7 +622,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -617,7 +622,7 @@ static struct ath11k_hw_params ath11k_hw
  		.coldboot_cal_mm = true,
  		.coldboot_cal_ftm = true,
  		.cbcal_restart_fw = false,
@@ -127,7 +123,7 @@ index 6ecb196..ff70c5e 100644
  		.num_vdevs = 3,
  		.num_peers = 512,
  		.supports_suspend = false,
-@@ -698,7 +703,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -698,7 +703,7 @@ static struct ath11k_hw_params ath11k_hw
  		.supports_monitor = false,
  		.supports_sta_ps = false,
  		.supports_shadow_regs = false,
@@ -136,7 +132,7 @@ index 6ecb196..ff70c5e 100644
  		.num_vdevs = 16 + 1,
  		.num_peers = 512,
  		.supports_regdb = false,
-@@ -733,6 +738,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -733,6 +738,7 @@ static struct ath11k_hw_params ath11k_hw
  		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
  		.smp2p_wow_exit = false,
  		.support_fw_mac_sequence = false,
@@ -144,7 +140,7 @@ index 6ecb196..ff70c5e 100644
  		.support_dual_stations = false,
  		.pdev_suspend = false,
  	},
-@@ -874,7 +880,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -874,7 +880,7 @@ static struct ath11k_hw_params ath11k_hw
  		.coldboot_cal_mm = false,
  		.coldboot_cal_ftm = false,
  		.cbcal_restart_fw = false,
@@ -153,7 +149,7 @@ index 6ecb196..ff70c5e 100644
  		.num_vdevs = 2 + 1,
  		.num_peers = 512,
  		.supports_suspend = true,
-@@ -910,6 +916,7 @@ static struct ath11k_hw_params ath11k_hw_params[] = {
+@@ -910,6 +916,7 @@ static struct ath11k_hw_params ath11k_hw
  		.tx_ring_size = DP_TCL_DATA_RING_SIZE,
  		.smp2p_wow_exit = false,
  		.support_fw_mac_sequence = true,
@@ -161,7 +157,7 @@ index 6ecb196..ff70c5e 100644
  		.support_dual_stations = true,
  		.pdev_suspend = false,
  	},
-@@ -2751,6 +2758,21 @@ static int ath11k_core_pm_notify(struct notifier_block *nb,
+@@ -2751,6 +2758,21 @@ static int ath11k_core_pm_notify(struct
  	return NOTIFY_OK;
  }
  
@@ -183,8 +179,6 @@ index 6ecb196..ff70c5e 100644
  static int ath11k_core_pm_notifier_register(struct ath11k_base *ab)
  {
  	ab->pm_nb.notifier_call = ath11k_core_pm_notify;
-diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index 70323ae..aab9814 100644
 --- a/drivers/net/wireless/ath/ath11k/core.h
 +++ b/drivers/net/wireless/ath/ath11k/core.h
 @@ -952,6 +952,11 @@ enum ath11k_pm_policy {
@@ -208,8 +202,6 @@ index 70323ae..aab9814 100644
  #ifdef CPTCFG_NL80211_TESTMODE
  	struct {
  		u32 data_pos;
-diff --git a/drivers/net/wireless/ath/ath11k/dp.h b/drivers/net/wireless/ath/ath11k/dp.h
-index 5cb578d..2fb3f72 100644
 --- a/drivers/net/wireless/ath/ath11k/dp.h
 +++ b/drivers/net/wireless/ath/ath11k/dp.h
 @@ -207,8 +207,9 @@ struct ath11k_pdev_dp {
@@ -236,8 +228,6 @@ index 5cb578d..2fb3f72 100644
  #define DP_RXDMA_MONITOR_DESC_RING_SIZE	4096
  
  #define DP_RX_RELEASE_RING_NUM	3
-diff --git a/drivers/net/wireless/ath/ath11k/dp_tx.c b/drivers/net/wireless/ath/ath11k/dp_tx.c
-index 83c4037..6c3d791 100644
 --- a/drivers/net/wireless/ath/ath11k/dp_tx.c
 +++ b/drivers/net/wireless/ath/ath11k/dp_tx.c
 @@ -335,6 +335,7 @@ tcl_ring_sel:
@@ -248,7 +238,7 @@ index 83c4037..6c3d791 100644
  
  	return 0;
  
-@@ -381,6 +382,7 @@ static void ath11k_dp_tx_free_txbuf(struct ath11k_base *ab, u8 mac_id,
+@@ -381,6 +382,7 @@ static void ath11k_dp_tx_free_txbuf(stru
  	ar = ab->pdevs[mac_id].ar;
  	if (atomic_dec_and_test(&ar->dp.num_tx_pending))
  		wake_up(&ar->dp.tx_empty_waitq);
@@ -256,7 +246,7 @@ index 83c4037..6c3d791 100644
  }
  
  static void
-@@ -412,6 +414,7 @@ ath11k_dp_tx_htt_tx_complete_buf(struct ath11k_base *ab,
+@@ -412,6 +414,7 @@ ath11k_dp_tx_htt_tx_complete_buf(struct
  
  	if (atomic_dec_and_test(&ar->dp.num_tx_pending))
  		wake_up(&ar->dp.tx_empty_waitq);
@@ -264,7 +254,7 @@ index 83c4037..6c3d791 100644
  
  	dma_unmap_single(ab->dev, skb_cb->paddr, msdu->len, DMA_TO_DEVICE);
  
-@@ -834,6 +837,7 @@ void ath11k_dp_tx_completion_handler(struct ath11k_base *ab, int ring_id)
+@@ -834,6 +837,7 @@ void ath11k_dp_tx_completion_handler(str
  			wake_up(&ar->dp.tx_empty_waitq);
  
  		ath11k_dp_tx_complete_msdu(ar, msdu, &ts);
@@ -272,8 +262,6 @@ index 83c4037..6c3d791 100644
  	}
  }
  
-diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
-index d05dd9d..74ff632 100644
 --- a/drivers/net/wireless/ath/ath11k/hw.h
 +++ b/drivers/net/wireless/ath/ath11k/hw.h
 @@ -11,11 +11,29 @@
@@ -327,8 +315,6 @@ index d05dd9d..74ff632 100644
  	bool support_dual_stations;
  	bool pdev_suspend;
  };
-diff --git a/drivers/net/wireless/ath/ath11k/qmi.h b/drivers/net/wireless/ath/ath11k/qmi.h
-index f6014b9..c09113b 100644
 --- a/drivers/net/wireless/ath/ath11k/qmi.h
 +++ b/drivers/net/wireless/ath/ath11k/qmi.h
 @@ -30,6 +30,12 @@
@@ -356,8 +342,6 @@ index f6014b9..c09113b 100644
  
  enum ath11k_qmi_file_type {
  	ATH11K_QMI_FILE_TYPE_BDF_GOLDEN,
-diff --git a/local-symbols b/local-symbols
-index acc4b69..61cc1a8 100644
 --- a/local-symbols
 +++ b/local-symbols
 @@ -161,6 +161,8 @@ ATH11K=

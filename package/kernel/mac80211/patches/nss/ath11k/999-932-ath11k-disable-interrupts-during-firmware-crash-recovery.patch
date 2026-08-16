@@ -22,11 +22,9 @@ which is the synchronous external abort 999-927 exists to prevent.
 
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 24389f5..4569c72 100644
 --- a/drivers/net/wireless/ath/ath11k/core.c
 +++ b/drivers/net/wireless/ath/ath11k/core.c
-@@ -2403,6 +2403,16 @@ static int ath11k_core_reconfigure_on_crash(struct ath11k_base *ab)
+@@ -2403,6 +2403,16 @@ static int ath11k_core_reconfigure_on_cr
  	ab->nss.enabled = false;
  
  	ath11k_thermal_unregister(ab);

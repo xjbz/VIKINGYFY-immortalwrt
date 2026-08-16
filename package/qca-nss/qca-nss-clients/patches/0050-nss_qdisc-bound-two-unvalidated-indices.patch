@@ -39,7 +39,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
 --- a/nss_qdisc/nss_qdisc_stats.c
 +++ b/nss_qdisc/nss_qdisc_stats.c
-@@ -462,6 +462,21 @@
+@@ -462,6 +462,21 @@ static void nss_qdisc_stats_sync_many_ca
  	wake_up(&nqsw->stats_resp_waitqueue);
  
  	if (nim->cm.response == NSS_CMN_RESPONSE_ACK) {
@@ -72,7 +72,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
  /*
   * nsswred traffic class structure
-@@ -266,6 +266,15 @@
+@@ -266,6 +266,15 @@ static int nss_wred_change(struct Qdisc
  			}
  			q->ecn = qopt->ecn;
  		}

@@ -40,7 +40,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
   * Codel stats structure.
   */
  struct nss_codel_stats_sq {
-@@ -50,7 +56,8 @@
+@@ -50,7 +56,8 @@ struct nss_codel_sched_data {
  	u32 target;		/* Acceptable value of queue delay */
  	u32 limit;		/* Length of queue */
  	u32 interval;		/* Monitoring interval */
@@ -50,7 +50,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	u32 quantum;		/* Weight (in bytes) used for DRR of flow buckets */
  	unsigned long flow_queue_mem;
  				/* Pointer to flow queue memory */
-@@ -209,6 +216,25 @@
+@@ -209,6 +216,25 @@ static void nss_codel_configure_callback
  }
  
  /*
@@ -76,7 +76,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
   * nss_codel_mem_sz_get()
   *	Sends a message to nss_codel queue (in FW) requesting per flow-queue mem size.
   *
-@@ -222,8 +248,16 @@
+@@ -222,8 +248,16 @@ static int nss_codel_mem_sz_get(struct Q
  	/*
  	 * No memory allocation needed for codel when operating in single
  	 * queue mode. This is needed only for flow-queue mode.
@@ -94,7 +94,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  		return 0;
  	}
  
-@@ -253,7 +287,7 @@
+@@ -253,7 +287,7 @@ static int nss_codel_change(struct Qdisc
  	struct tc_nsscodel_qopt *qopt;
  	struct nss_if_msg nim;
  	struct net_device *dev = qdisc_dev(sch);
@@ -103,7 +103,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	bool is_fq_codel = (sch->ops == &nss_fq_codel_qdisc_ops);
  	struct nss_shaper_node_config *config;
  	bool free_flow_queue = true;
-@@ -273,12 +307,18 @@
+@@ -273,12 +307,18 @@ static int nss_codel_change(struct Qdisc
  		return -EINVAL;
  	}
  
@@ -123,7 +123,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  			nss_qdisc_warning("Change of flow queue count not allowed");
  			return -EINVAL;
  		}
-@@ -299,7 +339,7 @@
+@@ -299,7 +339,7 @@ static int nss_codel_change(struct Qdisc
  	q->limit = qopt->limit;
  	q->interval = qopt->interval;
  	q->quantum = qopt->quantum;
@@ -132,7 +132,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	q->ecn = qopt->ecn;
  	q->set_default = qopt->set_default;
  
-@@ -316,27 +356,53 @@
+@@ -316,27 +356,53 @@ static int nss_codel_change(struct Qdisc
  	 * has not been allocated previously (i.e. init time).
  	 */
  	if (is_fq_codel && !q->flow_queue_mem) {

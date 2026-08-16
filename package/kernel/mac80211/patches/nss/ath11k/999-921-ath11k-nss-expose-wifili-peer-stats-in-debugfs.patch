@@ -20,11 +20,9 @@ already controls.
 
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
-diff --git a/drivers/net/wireless/ath/ath11k/debugfs_sta.c b/drivers/net/wireless/ath/ath11k/debugfs_sta.c
-index c30c89e..5038a81 100644
 --- a/drivers/net/wireless/ath/ath11k/debugfs_sta.c
 +++ b/drivers/net/wireless/ath/ath11k/debugfs_sta.c
-@@ -1092,11 +1092,84 @@ static const struct file_operations fops_reset_rx_stats = {
+@@ -1092,11 +1092,84 @@ static const struct file_operations fops
  	.llseek = default_llseek,
  };
  
@@ -109,11 +107,9 @@ index c30c89e..5038a81 100644
  	if (ath11k_debugfs_is_extd_tx_stats_enabled(ar))
  		debugfs_create_file("tx_stats", 0400, dir, sta,
  				    &fops_tx_stats);
-diff --git a/drivers/net/wireless/ath/ath11k/nss.c b/drivers/net/wireless/ath/ath11k/nss.c
-index 907a000..0d21d97 100644
 --- a/drivers/net/wireless/ath/ath11k/nss.c
 +++ b/drivers/net/wireless/ath/ath11k/nss.c
-@@ -204,6 +204,29 @@ static void ath11k_nss_get_peer_stats(struct ath11k_base *ab, struct nss_wifili_
+@@ -204,6 +204,29 @@ static void ath11k_nss_get_peer_stats(st
  			pstats->rx.err.decrypt_err;
  		peer->nss.nss_stats->rx_dropped += rx_dropped;
  
@@ -143,8 +139,6 @@ index 907a000..0d21d97 100644
  		if (peer->nss.ext_vdev_up)
  			ATH11K_NSS_TXRX_NETDEV_STATS(rx, peer->nss.ext_vif, rx_bytes, rx_packets);
  		else
-diff --git a/drivers/net/wireless/ath/ath11k/nss.h b/drivers/net/wireless/ath/ath11k/nss.h
-index 0cafda3..41284d7 100644
 --- a/drivers/net/wireless/ath/ath11k/nss.h
 +++ b/drivers/net/wireless/ath/ath11k/nss.h
 @@ -136,6 +136,21 @@ struct peer_stats {

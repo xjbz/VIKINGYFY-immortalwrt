@@ -25,11 +25,9 @@ Signed-off-by: Hari Chandrakanthan <quic_haric@quicinc.com>
  drivers/net/wireless/ath/ath11k/mac.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 8c1beaf..c1274df 100644
 --- a/drivers/net/wireless/ath/ath11k/mac.c
 +++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -8831,6 +8831,8 @@ static int ath11k_mac_flush_tx_complete(struct ath11k *ar)
+@@ -8834,6 +8834,8 @@ static int ath11k_mac_flush_tx_complete(
  		ret = -ETIMEDOUT;
  	}
  

@@ -37,7 +37,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
 --- a/mc_snooping.c
 +++ b/mc_snooping.c
-@@ -2536,6 +2536,20 @@
+@@ -2536,6 +2536,20 @@ static int mc_ipv6_rcv(struct mc_struct
  	MC_SKB_CB(skb)->igmp = 1;
  	MC_SKB_CB(skb)->mdb = NULL;
  

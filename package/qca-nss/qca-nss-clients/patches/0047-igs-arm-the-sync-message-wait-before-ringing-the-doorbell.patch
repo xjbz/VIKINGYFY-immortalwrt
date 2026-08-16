@@ -43,7 +43,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
   * nss_ifb_if_config
 --- a/nss_qdisc/igs/nss_ifb.c
 +++ b/nss_qdisc/igs/nss_ifb.c
-@@ -286,15 +286,25 @@
+@@ -344,6 +344,17 @@ int32_t nss_ifb_config_msg_tx_sync(struc
  	}
  
  	down(&msg_response.sem);
@@ -61,7 +61,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	ret = nss_if_tx_msg(nss_igs_get_context(), &nim);
  	if (ret != NSS_TX_SUCCESS) {
  		up(&msg_response.sem);
- 		nss_igs_error("failed to send config message\n");
+@@ -351,7 +362,6 @@ int32_t nss_ifb_config_msg_tx_sync(struc
  		return -1;
  	}
  
@@ -69,4 +69,3 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	if (!wait_event_timeout(msg_response.wq, msg_response.cond == 0, NSS_IFB_MSG_TIMEOUT)) {
  		nss_igs_error("config for attach interface msg timeout\n");
  		up(&msg_response.sem);
- 		return -1;

@@ -43,7 +43,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
 --- a/mc_snooping.c
 +++ b/mc_snooping.c
-@@ -2478,7 +2478,7 @@
+@@ -2478,7 +2478,7 @@ static int mc_ipv6_rcv(struct mc_struct
  
  	err = -EINVAL;
  	if (unlikely(!pskb_may_pull(skb2, offset + sizeof(*icmp6h))))
@@ -52,7 +52,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
  	__skb_pull(skb2, offset);
  	skb_reset_transport_header(skb2);
-@@ -2585,6 +2585,7 @@
+@@ -2585,6 +2585,7 @@ static int mc_ipv6_rcv(struct mc_struct
  
  out:
  	__skb_push(skb2, offset);

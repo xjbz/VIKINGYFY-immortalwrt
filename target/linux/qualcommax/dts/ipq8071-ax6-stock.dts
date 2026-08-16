@@ -10,10 +10,10 @@
 
 	aliases {
 		/* Aliases as required by u-boot to patch MAC addresses */
-		ethernet1 = &dp2;
-		ethernet2 = &dp3;
-		ethernet3 = &dp4;
-		ethernet4 = &dp5;
+		ethernet1 = &swport2;
+		ethernet2 = &swport3;
+		ethernet3 = &swport4;
+		ethernet4 = &swport5;
 	};
 
 	chosen {

@@ -18,13 +18,13 @@
 	compatible = "tplink,tl-er2260t", "qcom,ipq8074";
 
 	aliases {
-		ethernet0 = &dp1;
-		ethernet1 = &dp2;
-		ethernet2 = &dp3;
-		ethernet3 = &dp4;
-		ethernet4 = &dp5_syn;
-		ethernet5 = &dp6_syn;
-		label-mac-device = &dp5_syn;
+		ethernet0 = &swport1;
+		ethernet1 = &swport2;
+		ethernet2 = &swport3;
+		ethernet3 = &swport4;
+		ethernet4 = &swport5;
+		ethernet5 = &swport6;
+		label-mac-device = &swport5;
 		serial0 = &blsp1_uart5;
 
 		led-boot = &led_system_green;
@@ -191,55 +191,105 @@
 			compatible = "ethernet-phy-ieee802.3-c22";
 			reg = <3>;
 		};
+
+		sfp1: ethernet-phy@1d {
+			reg = <29>;
+		};
+
+		sfp2: ethernet-phy@1e {
+			reg = <30>;
+		};
 	};
+};
+
+&uniphy0 {
+	status = "okay";
+};
+
+&uniphy1 {
+	status = "okay";
+};
+
+&uniphy2 {
+	status = "okay";
 };
 
 &switch {
 	status = "okay";
 
-	switch_lan_bmp = <(ESS_PORT1 | ESS_PORT2 | ESS_PORT3 | ESS_PORT4 | ESS_PORT5)>;
-	switch_wan_bmp = <ESS_PORT6>;
-	switch_mac_mode = <MAC_MODE_QSGMII>;
-	switch_mac_mode1 = <MAC_MODE_10GBASE_R>;
-	switch_mac_mode2 = <MAC_MODE_10GBASE_R>;
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
 
-	cmnblk_clk = "external_50MHz";
-
-	qcom,port_phyinfo {
 		port@0 {
-			port_id = <1>;
-			phy_address = <0>;
+			reg = <0>;
+			ethernet = <&edma>;
+			phy-mode = "internal";
+
+			fixed-link {
+				speed = <1000>;
+				full-duplex;
+			};
 		};
 
-		port@1 {
-			port_id = <2>;
-			phy_address = <1>;
+		swport1: port@1 {
+			reg = <1>;
+			label = "ge1";
+			phy-handle = <&qca8075_0>;
+			phy-mode = "qsgmii";
+			pcs-handle = <&uniphy0 0>;
+			nvmem-cells = <&macaddr_lan>;
+			nvmem-cell-names = "mac-address";
 		};
 
-		port@2 {
-			port_id = <3>;
-			phy_address = <2>;
+		swport2: port@2 {
+			reg = <2>;
+			label = "ge2";
+			phy-handle = <&qca8075_1>;
+			phy-mode = "qsgmii";
+			pcs-handle = <&uniphy0 1>;
+			nvmem-cells = <&macaddr_lan>;
+			nvmem-cell-names = "mac-address";
 		};
 
-		port@3 {
-			port_id = <4>;
-			phy_address = <3>;
+		swport3: port@3 {
+			reg = <3>;
+			label = "ge3";
+			phy-handle = <&qca8075_2>;
+			phy-mode = "qsgmii";
+			pcs-handle = <&uniphy0 2>;
+			nvmem-cells = <&macaddr_lan>;
+			nvmem-cell-names = "mac-address";
 		};
 
-		sfp_1: port@4 {
-			port_id = <5>;
-			phy_address = <29>;
-			phy_i2c_address = <29>;
-			phy-i2c-mode;
-			media-type = "sfp";
+		swport4: port@4 {
+			reg = <4>;
+			label = "ge4";
+			phy-handle = <&qca8075_3>;
+			phy-mode = "qsgmii";
+			pcs-handle = <&uniphy0 3>;
+			nvmem-cells = <&macaddr_lan>;
+			nvmem-cell-names = "mac-address";
 		};
 
-		sfp_2: port@5 {
-			port_id = <6>;
-			phy_address = <30>;
-			phy_i2c_address = <30>;
-			phy-i2c-mode;
-			media-type = "sfp";
+		swport5: port@5 {
+			reg = <5>;
+			label = "10ge1";
+			phy-handle = <&sfp1>;
+			phy-mode = "10gbase-r";
+			pcs-handle = <&uniphy1 0>;
+			nvmem-cells = <&macaddr_wan>;
+			nvmem-cell-names = "mac-address";
+		};
+
+		swport6: port@6 {
+			reg = <6>;
+			label = "10ge2";
+			phy-handle = <&sfp2>;
+			phy-mode = "10gbase-r";
+			pcs-handle = <&uniphy2 0>;
+			nvmem-cells = <&macaddr_lan>;
+			nvmem-cell-names = "mac-address";
 		};
 	};
 };
@@ -250,52 +300,4 @@
 
 &edma {
 	status = "okay";
-};
-
-&dp1 {
-	status = "okay";
-	phy-handle = <&qca8075_0>;
-	label = "ge1";
-	nvmem-cells = <&macaddr_lan>;
-	nvmem-cell-names = "mac-address";
-};
-
-&dp2 {
-	status = "okay";
-	phy-handle = <&qca8075_1>;
-	label = "ge2";
-	nvmem-cells = <&macaddr_lan>;
-	nvmem-cell-names = "mac-address";
-};
-
-&dp3 {
-	status = "okay";
-	phy-handle = <&qca8075_2>;
-	label = "ge3";
-	nvmem-cells = <&macaddr_lan>;
-	nvmem-cell-names = "mac-address";
-};
-
-&dp4 {
-	status = "okay";
-	phy-handle = <&qca8075_3>;
-	label = "ge4";
-	nvmem-cells = <&macaddr_lan>;
-	nvmem-cell-names = "mac-address";
-};
-
-&dp5_syn {
-	status = "okay";
-	phy-handle = <&sfp_1>;
-	label = "10ge1";
-	nvmem-cells = <&macaddr_wan>;
-	nvmem-cell-names = "mac-address";
-};
-
-&dp6_syn {
-	status = "okay";
-	phy-handle = <&sfp_2>;
-	label = "10ge2";
-	nvmem-cells = <&macaddr_lan>;
-	nvmem-cell-names = "mac-address";
 };

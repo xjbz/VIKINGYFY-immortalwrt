@@ -62,10 +62,8 @@ context, and an atomic allocation is what would fail for a larger ring.
 
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 ---
-Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_coredump.c
-===================================================================
---- qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af.orig/nss_coredump.c
-+++ qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_coredump.c
+--- a/nss_coredump.c
++++ b/nss_coredump.c
 @@ -32,12 +32,24 @@
  #include <linux/panic_notifier.h>	/* for panic_notifier_list */
  #endif
@@ -198,10 +196,8 @@ Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_
  	if (nss_own->state & NSS_CORE_STATE_PANIC)
  		return;
  
-Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_log.c
-===================================================================
---- qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af.orig/nss_log.c
-+++ qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_log.c
+--- a/nss_log.c
++++ b/nss_log.c
 @@ -399,7 +399,7 @@ bool nss_debug_log_buffer_alloc(uint8_t
  	struct nss_top_instance *nss_top;
  	struct nss_ctx_instance *nss_ctx;
@@ -231,10 +227,8 @@ Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_
  		return false;
  	}
  
-Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_log.h
-===================================================================
---- qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af.orig/nss_log.h
-+++ qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_log.h
+--- a/nss_log.h
++++ b/nss_log.h
 @@ -33,6 +33,13 @@ enum nss_debug_interface_msg_type {
  };
  
@@ -263,10 +257,8 @@ Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_
   * Saves the ring buffer address for logging per NSS core
   */
  struct nss_log_ring_buffer_addr {
-Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_meminfo.c
-===================================================================
---- qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af.orig/nss_meminfo.c
-+++ qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_meminfo.c
+--- a/nss_meminfo.c
++++ b/nss_meminfo.c
 @@ -398,6 +398,7 @@ static bool nss_meminfo_init_block_lists
  		if (!strcmp(r->name, "debug_boot_log_desc")) {
  			BUG_ON(mtype == NSS_MEMINFO_MEMTYPE_UTCM_SHARED);
@@ -275,10 +267,8 @@ Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_
  			mem_ctx->logbuffer_dma = dma_addr;
  			mem_ctx->logbuffer = (struct nss_log_descriptor *)kern_addr;
  		}
-Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_meminfo.h
-===================================================================
---- qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af.orig/nss_meminfo.h
-+++ qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_meminfo.h
+--- a/nss_meminfo.h
++++ b/nss_meminfo.h
 @@ -120,6 +120,7 @@ struct nss_meminfo_ctx {
  	uint32_t if_map_dma;				/* nss_if_mem_map_inst physical address */
  	enum nss_meminfo_memtype if_map_memtype;	/* Memory type for nss_if_mem_map */

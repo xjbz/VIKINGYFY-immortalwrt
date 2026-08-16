@@ -34,7 +34,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
 --- a/nss_qdisc/nss_bf.c
 +++ b/nss_qdisc/nss_bf.c
-@@ -506,6 +506,7 @@
+@@ -506,6 +506,7 @@ static int nss_bf_dump_class(struct Qdis
  	struct nss_bf_class_data *cl = (struct nss_bf_class_data *)arg;
  	struct nlattr *opts;
  	struct tc_nssbf_class_qopt qopt;
@@ -42,7 +42,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
  	nss_qdisc_info("Dumping class %px of Qdisc %px\n", cl, sch);
  
-@@ -819,6 +820,7 @@
+@@ -819,6 +820,7 @@ static int nss_bf_dump_qdisc(struct Qdis
  	struct nss_bf_sched_data *q = qdisc_priv(sch);
  	struct tc_nssbf_qopt qopt;
  	struct nlattr *opts = NULL;
@@ -52,7 +52,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	qopt.defcls = q->defcls;
 --- a/nss_qdisc/nss_blackhole.c
 +++ b/nss_qdisc/nss_blackhole.c
-@@ -231,6 +231,7 @@
+@@ -231,6 +231,7 @@ static int nss_blackhole_dump(struct Qdi
  	struct nss_blackhole_sched_data *q;
  	struct nlattr *opts = NULL;
  	struct tc_nssblackhole_qopt opt;
@@ -62,7 +62,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
 --- a/nss_qdisc/nss_codel.c
 +++ b/nss_qdisc/nss_codel.c
-@@ -529,6 +529,7 @@
+@@ -529,6 +529,7 @@ static int nss_codel_dump(struct Qdisc *
  	struct nss_codel_sched_data *q;
  	struct nlattr *opts = NULL;
  	struct tc_nsscodel_qopt opt;
@@ -70,7 +70,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
  	nss_qdisc_info("NssCodel Dumping!");
  
-@@ -572,6 +573,9 @@
+@@ -572,6 +573,9 @@ static int nss_codel_dump_stats(struct Q
  	struct tc_nssfq_codel_xstats fqcst;
  	struct tc_nsscodel_xstats cst;
  
@@ -82,7 +82,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  		cst.peak_drop_delay = q->sq_stats.peak_drop_delay;
 --- a/nss_qdisc/nss_fifo.c
 +++ b/nss_qdisc/nss_fifo.c
-@@ -299,6 +299,7 @@
+@@ -299,6 +299,7 @@ static int nss_fifo_dump(struct Qdisc *s
  	struct nss_fifo_sched_data *q;
  	struct nlattr *opts = NULL;
  	struct tc_nssfifo_qopt opt;
@@ -92,7 +92,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
 --- a/nss_qdisc/nss_htb.c
 +++ b/nss_qdisc/nss_htb.c
-@@ -766,6 +766,7 @@
+@@ -766,6 +766,7 @@ static int nss_htb_dump_class(struct Qdi
  	struct nss_htb_class_data *cl = (struct nss_htb_class_data *)arg;
  	struct nlattr *opts;
  	struct tc_nsshtb_class_qopt qopt;
@@ -100,7 +100,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
  	nss_qdisc_trace("dumping htb class %x of qdisc %x\n", cl->nq.qos_tag, sch->handle);
  
-@@ -1086,6 +1087,7 @@
+@@ -1086,6 +1087,7 @@ static int nss_htb_dump_qdisc(struct Qdi
  	struct nss_htb_sched_data *q = qdisc_priv(sch);
  	struct nlattr *opts = NULL;
  	struct tc_nsshtb_qopt qopt;
@@ -110,7 +110,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
 --- a/nss_qdisc/nss_prio.c
 +++ b/nss_qdisc/nss_prio.c
-@@ -291,6 +291,7 @@
+@@ -291,6 +291,7 @@ static int nss_prio_dump(struct Qdisc *s
  	struct nss_prio_sched_data *q = qdisc_priv(sch);
  	struct nlattr *opts = NULL;
  	struct tc_nssprio_qopt qopt;
@@ -120,7 +120,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	qopt.bands = q->bands;
 --- a/nss_qdisc/nss_tbl.c
 +++ b/nss_qdisc/nss_tbl.c
-@@ -295,6 +295,7 @@
+@@ -295,6 +295,7 @@ static int nss_tbl_dump(struct Qdisc *sc
  	struct nss_tbl_sched_data *q = qdisc_priv(sch);
  	struct nlattr *opts = NULL;
  	struct tc_nsstbl_qopt opt;
@@ -130,7 +130,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	opt.peakrate = q->peakrate;
 --- a/nss_qdisc/nss_wred.c
 +++ b/nss_qdisc/nss_wred.c
-@@ -392,6 +392,8 @@
+@@ -392,6 +392,8 @@ static int nss_wred_dump(struct Qdisc *s
  	struct nlattr *opts = NULL;
  	struct tc_nsswred_qopt opt;
  	int i;
@@ -141,7 +141,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  	q = qdisc_priv(sch);
 --- a/nss_qdisc/nss_wrr.c
 +++ b/nss_qdisc/nss_wrr.c
-@@ -594,6 +594,7 @@
+@@ -594,6 +594,7 @@ static int nss_wrr_dump_class(struct Qdi
  	struct nss_wrr_class_data *cl = (struct nss_wrr_class_data *)arg;
  	struct nlattr *opts;
  	struct tc_nsswrr_class_qopt qopt;
@@ -149,7 +149,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
  	nss_qdisc_info("Dumping class %px of Qdisc %x\n", cl, sch->handle);
  
-@@ -858,6 +859,7 @@
+@@ -858,6 +859,7 @@ static int nss_wrr_dump_qdisc(struct Qdi
  	struct nss_wrr_sched_data *q;
  	struct nlattr *opts = NULL;
  	struct tc_nsswrr_qopt opt;

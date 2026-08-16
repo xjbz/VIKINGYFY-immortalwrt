@@ -49,7 +49,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
 --- a/mc_netlink.c
 +++ b/mc_netlink.c
-@@ -120,7 +120,7 @@
+@@ -120,7 +120,7 @@ static void mc_acltbl_update(struct mc_s
  			MC_PRINT(KERN_INFO "%s: Del MLD acl rule, count=%d\n", __func__, mc->mld_acl.pattern_count);
  		} else {
  			if (i != mc->mld_acl.pattern_count) {
@@ -58,7 +58,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  				MC_PRINT(KERN_INFO "%s: Update acl rule\n", __func__);
  				goto out;
  			}
-@@ -546,6 +546,23 @@
+@@ -546,6 +546,23 @@ static void __mc_netlink_receive(struct
  	u32 pid, seq, msgtype;
  	struct __mcctl_msg_header *msghdr;
  	struct mc_struct *mc = NULL;
@@ -82,7 +82,7 @@ Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
  
  #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 10, 0))
  	if ((skb = skb_clone(__skb, GFP_ATOMIC)) == NULL)
-@@ -563,6 +580,20 @@
+@@ -563,6 +580,20 @@ static void __mc_netlink_receive(struct
  	msgdata = MC_MSG_DATA(nlh);
  	msgtype = nlh->nlmsg_type;
  

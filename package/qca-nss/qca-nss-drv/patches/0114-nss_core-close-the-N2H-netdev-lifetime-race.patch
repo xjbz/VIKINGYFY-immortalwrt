@@ -46,10 +46,8 @@ out-of-tree callers in ecm/clients/mcs.
 
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
-Index: qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_core.c
-===================================================================
---- qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af.orig/nss_core.c
-+++ qca-nss-drv-14.0.2026.04.10~d7ef98b1d3d31346981d3a1abff5152a206374af/nss_core.c
+--- a/nss_core.c
++++ b/nss_core.c
 @@ -402,6 +402,18 @@ void nss_core_unregister_subsys_dp(struc
  	reg->ndev = NULL;
  	reg->features = 0;
