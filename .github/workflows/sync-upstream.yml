@@ -1,0 +1,67 @@
+name: Sync Fork with Upstream
+
+on:
+  schedule:
+    - cron: '50 20 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-fork-with-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          # If GITHUB_TOKEN cannot push your upstream changes, use a PAT:
+          # token: ${{ secrets.SYNC_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Sync upstream branches into fork branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          UPSTREAM_URL="https://github.com/VIKINGYFY/immortalwrt.git"
+          git remote add upstream "$UPSTREAM_URL" 2>/dev/null || git remote set-url upstream "$UPSTREAM_URL"
+          # Refresh both sides explicitly.
+          git fetch --prune --no-tags origin '+refs/heads/*:refs/remotes/origin/*'
+          git fetch --prune --no-tags upstream '+refs/heads/*:refs/remotes/upstream/*'
+          git for-each-ref --format='%(refname:strip=3)' refs/remotes/upstream |
+            while IFS= read -r branch; do
+              [ -n "$branch" ] || continue
+              [ "$branch" = "HEAD" ] && continue
+              echo "::group::Sync $branch"
+              upstream_ref="refs/remotes/upstream/$branch"
+              origin_ref="refs/remotes/origin/$branch"
+              target_ref="refs/heads/$branch"
+              if git show-ref --verify --quiet "$origin_ref"; then
+                old_origin_sha="$(git rev-parse "$origin_ref")"
+                # Important: start from the fork branch, not upstream.
+                git switch -C "$branch" "$origin_ref"
+                # Rebase fork-only commits on top of the current upstream branch.
+                # If conflicts occur, the job stops for manual resolution.
+                git rebase "$upstream_ref"
+                new_sha="$(git rev-parse HEAD)"
+                if [ "$new_sha" = "$old_origin_sha" ]; then
+                  echo "No change for $branch"
+                else
+                  git push --force-with-lease="$target_ref:$old_origin_sha" origin "HEAD:$target_ref"
+                fi
+              else
+                # Branch exists upstream but not in the fork: create it in the fork.
+                git switch -C "$branch" "$upstream_ref"
+                git push origin "HEAD:$target_ref"
+              fi
+              echo "::endgroup::"
+            done
